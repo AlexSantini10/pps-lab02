@@ -1,4 +1,4 @@
-package task5
+package part5
 
 // overall module
 object Optionals:
@@ -19,14 +19,10 @@ object Optionals:
       case Just(a) => a
       case _       => orElse
 
-@main def tryOptionals(): Unit =
-  import Optionals.* // to work with Optionals (to see OptionalInt type)
-  import OptionalInt.* // to directly access algorithms
+    def mapInt(opt: OptionalInt)(mapper: Int => Int): OptionalInt = opt match
+      case Just(value) => Just(mapper(value))
+      case Empty()     => Empty()
 
-  val s1: OptionalInt = Just(1)
-  val s2: OptionalInt = Empty()
-
-  println(s1) // Some(1)
-  println(isEmpty(s1)) // false
-  println(orElse(s1, 0)) // 1
-  println(orElse(s2, 0)) // 0
+    def filter(opt: OptionalInt)(predicate: Int => Boolean): OptionalInt = opt match
+      case Just(value) if predicate(value) => Just(value)
+      case _                               => Empty()

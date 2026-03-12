@@ -19,9 +19,11 @@ object AnonymousFunctions extends App:
   val f3: (Int, Int) => Int = (x, y) => x + y // untyped, with typed val
   val f4: (Int, Int) => Int = _ + _ // expression with placeholders, with typed val
   val f5: (Int, Int) => Int = f4  // a function variable can be used as value
-  // val f6 = _ + _ // won't type-check
+  //val f6 = _ + _ // won't type-check
+  val f6: (String, String) => String = _ + _ // works with String, as + is concatenation
 
   println(s"${f1(10, 5)}, ${f4(10, 5)}") // (15,15)
+  println(s"${f6("ciao", "mondo")}") // ciao mondo, String concatenation as operator
 
   val g: Int => Int =
     (x: Int) =>  // a function literal with an imperative body

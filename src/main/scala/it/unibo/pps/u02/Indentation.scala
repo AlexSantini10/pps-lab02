@@ -1,6 +1,6 @@
 package it.unibo.pps.u02
 
-object Indentation:
+object Indentation extends App:
 
   // idiomatic Scala 3 significant indentation
   val res = 5 match
