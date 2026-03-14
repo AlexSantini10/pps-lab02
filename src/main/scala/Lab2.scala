@@ -14,11 +14,11 @@ object Lab2 extends App:
 
   val positive: Int => String = _ match
     case x if x >= 0 => "positive"
-    case x if x < 0  => "negative"
+    case _           => "negative"
 
   def positiveDef(x: Int): String = x match
     case x if x >= 0 => "positive"
-    case x if x < 0  => "negative"
+    case _           => "negative"
 
   val neg: (String => Boolean) => (String => Boolean) =
     p => s => !p(s)
@@ -79,11 +79,11 @@ object Lab2 extends App:
 
   def power(b: Double, e: Int): Double =
 
-    def loop(e: Int, a: Double): Double = e match
-      case x if x > 0 => loop(x - 1, a * b)
+    def powerRec(e: Int, a: Double): Double = e match
+      case x if x > 0 => powerRec(x - 1, a * b)
       case _          => a
 
-    loop(e, 1)
+    powerRec(e, 1)
 
   println(power(3, 5))
   println(power(2, 3))
@@ -94,11 +94,11 @@ object Lab2 extends App:
 
   def reverseNumber(n: Int): Int =
 
-    def loop(n: Int, a: Int): Int = n match
-      case x if x > 0 => loop(x / 10, a * 10 + x % 10)
+    def reverseRec(n: Int, a: Int): Int = n match
+      case x if x > 0 => reverseRec(x / 10, a * 10 + x % 10)
       case _          => a
 
-    loop(n, 0)
+    reverseRec(n, 0)
 
   println(reverseNumber(12345))
 
@@ -113,13 +113,13 @@ object Lab2 extends App:
   object ExprModule:
 
     def evaluate(expr: Expr): Int = expr match
-      case Expr.Literal(value)     => value
-      case Expr.Add(left, right)   => evaluate(left) + evaluate(right)
+      case Expr.Literal(value)        => value
+      case Expr.Add(left, right)      => evaluate(left) + evaluate(right)
       case Expr.Multiply(left, right) => evaluate(left) * evaluate(right)
 
     def show(expr: Expr): String = expr match
-      case Expr.Literal(value)     => value.toString
-      case Expr.Add(left, right)   => "(" + show(left) + " + " + show(right) + ")"
+      case Expr.Literal(value)        => value.toString
+      case Expr.Add(left, right)      => "(" + show(left) + " + " + show(right) + ")"
       case Expr.Multiply(left, right) => "(" + show(left) + " * " + show(right) + ")"
 
   val expr =
@@ -173,3 +173,6 @@ object Lab2 extends App:
   println(filter(Just(5))(_ > 2))
   println(filter(Just(5))(_ > 8))
   println(filter(Empty())(_ > 2))
+
+  val xs = List(Just(5), Empty(), Just(1))
+  println(xs.map(filter(_)(_ > 2)))

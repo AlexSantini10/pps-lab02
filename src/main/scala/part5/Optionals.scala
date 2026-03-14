@@ -1,7 +1,7 @@
 package part5
 
 // overall module
-object Optionals:
+object Optionals extends App:
 
   // type "public" definition, exposing structure
   enum OptionalInt:
